@@ -2,7 +2,7 @@
 ### Nathan Groves
 ### Description:
 
-This program implements a vector class
+This program implements a linked list vector class
 
 ### Files
 
