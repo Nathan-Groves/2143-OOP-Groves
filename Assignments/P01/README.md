@@ -2,7 +2,7 @@
 ### Nathan Groves
 ### Description:
 
-This program implements a linked list vector class
+This program implements a linked list based Vector class which can add and remove values.
 
 ### Files
 
