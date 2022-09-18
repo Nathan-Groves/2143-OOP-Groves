@@ -9,4 +9,5 @@ This program implements a linked list vector class
 |   #   | File     | Description                      |
 | :---: | -------- | -------------------------------- |
 |   1   | main.cpp | Main driver of my list program. |
+|   2   | input.dat | input text of values |
 
