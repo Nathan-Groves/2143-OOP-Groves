@@ -1,0 +1,15 @@
+V1 is: 2 3 9 1 7 
+V1 after popping at rear is: 2 3 9 1 
+searching for 5 in V1: -1
+Removed value at index 2: 1
+V1 is:  2 3 
+V1 after push at is: 2 7 3 7 
+V2 is: 31 12 4 53 93 
+V2 after sort is: 4 12 31 53 93 
+V3 is: 56 61 97 66 83 25 26 11 53 49 62 18 10 18 14 3 4 23 18 24 26 27 54 14 12 45 65 98 56 97 15 84 98 
+V4 is: 3 6 9 3 
+V4 after pushing V1 to front is: 2 7 3 7 3 6 9 3 
+V5 is: 4 12 31 53 93 
+V5 after pushing V4 to rear is: 4 12 31 53 93 2 7 3 7 3 6 9 3 
+V6 is: 89 36 2 12 41 
+V6 after sort and push is: 2 12 23 36 41 89 
