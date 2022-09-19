@@ -15,7 +15,7 @@ This program implements a doubly-linked list based Vector class which can add an
 
 ### Instructions:
 
-Create a vector class instance in Main, adhering to constructor conventions.
-When reading in from an input file, ensure no other data beside integers is put in.
+. Create a vector class instance in Main, adhering to constructor conventions.
+. When reading in from an input file, ensure no other data beside integers is put in.
 
 
