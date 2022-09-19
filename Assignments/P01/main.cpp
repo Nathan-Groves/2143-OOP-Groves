@@ -744,6 +744,11 @@ int main()
 
   ofstream outfile;
   outfile.open("test.out");
+	
+	
+  outfile << "Nathan Groves" << endl;
+  outfile << "September 16, 2022" << endl;
+  outfile << "Fall 2143" << endl << endl;
 
 
 
