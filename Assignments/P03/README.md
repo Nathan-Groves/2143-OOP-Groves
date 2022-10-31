@@ -1,4 +1,4 @@
-## P02 - Blackjack Game
+## P03 - Blackjack Game
 ### Nathan Groves
 ### Description:
 
