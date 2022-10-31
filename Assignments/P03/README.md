@@ -9,7 +9,7 @@ rounds as they want, so long as they have money to bet
 
 |   #   | File     | Description                      |
 | :---: | -------- | -------------------------------- |
-|   1   | main.cpp | Main driver of my list program. |
+|   1   | main.cpp | Main driver of my blackjack program. |
 |   2   | blackjack.hpp | header file for card container |
 |   3   | colors.h | header file for color values|
 
