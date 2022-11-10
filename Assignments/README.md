@@ -6,3 +6,4 @@
 |   02  |     [P01](P01)     |Program to implement a linked list Vector|
 |   03  |     [P02](P02)     |Program to implement a linked list Vector with overloaded operators|
 |   04  |     [P03](P03)     |Program to implement a game of Blackjack |
+|   05  |     [P04](P04)     |Program to implement a game of RPSLS |
