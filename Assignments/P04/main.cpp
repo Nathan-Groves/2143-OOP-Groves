@@ -8,9 +8,7 @@
  *  Description:
       Implements a game of Rock Paper Scissors Lizard Spock, wherein
       two players are created and assigned random hand values. The 
-      values are then compared to determine a winner, and then the
-      user is asked whether they want to play again. If a tie occurs
-      a new value is created for each player until a winner is found.
+      values are then compared to determine a winner and a point is given       to them. Then the user is asked whether they want to play again. If       a tie occurs a new value is created for each player until a winner        is found. At program end the final score is displayed.
  *        
  *
  *  Usage:
@@ -19,7 +17,6 @@
  *
  * File: main.cpp
  *****************************************************************************/
-
 
 #include <iostream>
 //#include "emoji.h"    //https://github.com/99x/emojicpp
@@ -49,6 +46,24 @@ Returns    : an int value to determine if
 
 */
 int compareHands(string, string);
+
+
+/*
+Name       : scoreAdd
+
+Purpose    : to add to the score of a player
+             based on who won the round
+
+Parameters : the int that determines who won,
+             as well as the passed-by-reference
+             values of each player score
+
+Returns    : nothing, as it changes the address
+             values of the player scores within the 
+             function
+
+*/
+void scoreAdd(int, int &, int &);
 
 
 #define ROCK u8"\U0000270A"
@@ -279,7 +294,9 @@ int main() {
     DieRoll dr;
     string wantToPlay = "y";
 
-
+    //keep track of the running score of each player
+    int player1score, player2score = 0;
+    
     //welcome message to game
     cout << "\nWelcome to Rock Paper Scissors Lizard Spock" << endl;
     cout << "=============================================" << endl;
@@ -300,6 +317,7 @@ int main() {
     cout << "Player One's " << h1 <<
     " vs Player Two's " << h2 <<endl << endl;
 
+    //used to denote who won
     int numCompare = 0;
 
     sleep(1);
@@ -307,6 +325,9 @@ int main() {
     //compare each player's hand to determine
     //who wins
     numCompare = compareHands(h1, h2);
+
+    //add score to who won
+    scoreAdd(numCompare, player1score, player2score);
 
     //so long as the players have tied
     //run another round of RPSLS
@@ -323,6 +344,9 @@ int main() {
     " vs Player Two's " << h2 <<endl << endl;
     //compare after each new hand
     numCompare = compareHands(h1, h2);
+
+    //add score to who won
+    scoreAdd(numCompare, player1score, player2score);
       }
 
     //ask the player if they want to play again
@@ -332,7 +356,9 @@ int main() {
 
       }
 
-    //an exit message
+    //an exit message and final score count
+    cout << "Player 1's final score is " << player1score << endl;
+    cout << "Player 2's final score is " << player2score << endl;
     cout << "Thank you for playing!";
   
     return 0;
@@ -412,5 +438,18 @@ int main() {
       cout << "Player 2 wins";
       return -1;
     }
+  }
+  }
+
+  //used to add to the score of the player who won the round
+  void scoreAdd(int numToCheck, int & firstscore, int & secondscore)
+  {
+  if (numToCheck == 1)
+  {
+    firstscore++;
+  }
+  else if (numToCheck == -1)
+  {
+    secondscore++;
   }
   }
