@@ -8,7 +8,10 @@
  *  Description:
       Implements a game of Rock Paper Scissors Lizard Spock, wherein
       two players are created and assigned random hand values. The 
-      values are then compared to determine a winner and a point is given       to them. Then the user is asked whether they want to play again. If       a tie occurs a new value is created for each player until a winner        is found. At program end the final score is displayed.
+      values are then compared to determine a winner and a point is given       
+      to them. Then the user is asked whether they want to play again. If       
+      a tie occurs a new value is created for each player until a winner        
+      is found. At program end the final score is displayed.
  *        
  *
  *  Usage:
@@ -109,7 +112,6 @@ class Lizard{
  *      DieRoll(int)
  *      DieRoll(int,int)
  *      void setDie(int)    : set sides
- *      int Roll(int,int)   :  NEEDS FIXING!!!!!!
  */
 class DieRoll {
     int sides;
