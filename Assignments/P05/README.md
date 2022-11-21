@@ -2,7 +2,7 @@
 ### Nathan Groves
 ### Description:
 
-This program implements a game of BolNiverse Fight Club, where two sides of Attackers and Defenders are made to fight each other until one side wins. Each side is composed of warriors, archers, wizards, elves, and dragonBorn proportional to their power. The attackers far outnumber the defenders, and the attacking army size is between 100 and 1000, and is a multiple of 100. once the fight is over the final scoreboard and results are shown.
+This program implements a game of BolNiverse Fight Club, where two sides of Attackers and Defenders are made to fight each other until one side wins. Each side is composed of warriors, archers, wizards, elves, and dragonBorn proportional to their power. The attackers far outnumber the defenders, and the attacking army size is between 100 and 1000, and is a multiple of 100. Once the fight is over the final scoreboard and results are shown.
 
 ### Files
 
