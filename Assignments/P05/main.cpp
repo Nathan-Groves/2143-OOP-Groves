@@ -33,6 +33,7 @@
 #include <string>
 #include <random>
 #include <algorithm>
+#include <fstream>
 
 
 #include "dice.hpp"
@@ -136,21 +137,24 @@ Parameters : the values for team wins, total rounds,
 Returns    : nothing
             
 */
-void printScoreboard(int teamOneWins, int teamTwoWins, int roundsFought, string winner);
+void printScoreboard(int, int, int, string, ofstream &);
 
 
 
 int main() 
   {
-    
     srand(time(0));
+
+    //open outfile
+    ofstream outfile;
+    outfile.open("output.txt");
 
     //create an attacking army whose size is a multiple of
     //100 up to 1000, and create a defending army that is 1/20th that
     int ArmySizeA = armySize[rand() % 10];
     int ArmySizeD = ArmySizeA / 20;
-    cout << "Attacker army size: " << ArmySizeA << endl;
-    cout << "Defender army size: " << ArmySizeD << endl << endl;
+    outfile << "Attacker army size: " << ArmySizeA << endl;
+    outfile << "Defender army size: " << ArmySizeD << endl << endl;
 
     //create a vector for possible die rolls for each class
     vector<string>warriorChoices;
@@ -249,7 +253,7 @@ int main()
     }
 
     //print final stats
-    printScoreboard(teamOneWins, teamTwoWins, rounds, winner);
+    printScoreboard(teamOneWins, teamTwoWins, rounds, winner, outfile);
 
     return 0;
     
@@ -378,17 +382,17 @@ void removeUnit(vector<BaseFighter*> & Army, BaseFighter * & Unit)
   }
 }
 
-void printScoreboard(int teamOneWins, int teamTwoWins, int roundsFought, string winner)
+void printScoreboard(int teamOneWins, int teamTwoWins, int roundsFought, string winner, ofstream & outfile)
 {
-     cout << "Final Stats" << endl;
-    cout << "-------------------------" << endl;
-    cout << "Team One Round Wins: " << teamOneWins << endl;
-    cout << "Team Two Round Wins: " << teamTwoWins << endl;
-    cout  << "rounds fought: " << roundsFought << endl;
-    cout << "The Winner is " << winner << endl;
-    cout << "percent of battle won by Defenders: " <<
+     outfile << "Final Stats" << endl;
+    outfile << "-------------------------" << endl;
+    outfile << "Team One Round Wins: " << teamOneWins << endl;
+    outfile << "Team Two Round Wins: " << teamTwoWins << endl;
+    outfile  << "rounds fought: " << roundsFought << endl;
+    outfile << "The Winner is " << winner << endl;
+    outfile << "percent of battle won by Defenders: " <<
     ((double)teamOneWins / roundsFought) * 100 << "%" << endl;
-    cout << "percent of battle won by Attackers: " <<
+    outfile << "percent of battle won by Attackers: " <<
     ((double)teamTwoWins / roundsFought) * 100 << "%";
 }
 
