@@ -12,7 +12,7 @@
      archers, elves, and dragonBorn, each with their own varying damage.
      A random army size between 100 and 1000 that is a multiple of 100 is
      is made to be the attacking army size, while the defenders are 1/20th 
-     the size. The winner and final stats are printed to the console after
+     the size. The winner and final stats are printed to an outfile after
      battle.
  *        
  *
