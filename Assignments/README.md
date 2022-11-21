@@ -8,3 +8,4 @@
 |   04  |     [OOP Primer](OOP_Primer) | Wikipedia source for general OOP terms|
 |   05  |     [P03](P03)     |Program to implement a game of Blackjack |
 |   06  |     [P04](P04)     |Program to implement a game of RPSLS |
+|   07  |     [P05](P05)     |Program to implement a game of bolNiverse Fight Club |
