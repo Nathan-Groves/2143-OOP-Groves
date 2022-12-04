@@ -108,6 +108,7 @@ __   _____ ___ _____ ___  ___    ___ _      _   ___ ___
  * Private Members:
  *   Node*         head
  *   Node*         tail
+ *   int           size
  * 
  * 
  * Public Methods:
@@ -119,6 +120,7 @@ __   _____ ___ _____ ___  ___    ___ _      _   ___ ___
  * void           PushFront(int);                   // add item to front of vector                 
  * void           PushFront(const Vector &);        // add vector to front of other vector         
  * void           PushRear(int);                    // add item to front of vector                
+ * int            getSize();                        // get the size of a vector
  * void           PushRear(const Vector &);         // add vector to back of other vector          
  * int            PopFront();                       // remove item from front of vector            
  * int            PopRear();                        // remove item from back of vector             
@@ -150,6 +152,7 @@ class Vector
 
 Node * head;
 Node * tail;
+int size;
 
 public:
 
@@ -171,7 +174,8 @@ public:
   void displayList();                                         
   void PushAt(int, int);                         
   void inOrderPush(int);                               
-  void SortList();                 
+  void SortList();   
+  int getSize();
 
 
   friend ostream &operator<<(ostream &, const Vector &);    //overloaded ostream operator
@@ -204,6 +208,7 @@ public:
    {
     head = NULL;
     tail = NULL;
+     size = 0;
    }
 
 
@@ -232,6 +237,7 @@ public:
       {
         infile >> inputValue;
         PushRear(inputValue);
+        size++;
       }
   }
 
@@ -252,6 +258,7 @@ public:
     
   head = v.head;
   tail = v.tail;
+  size = v.size;
     
   }
 
@@ -266,14 +273,15 @@ public:
      *      int
      */
 
-  Vector::Vector(int * n, int size)
+  Vector::Vector(int * n, int arraySize)
   {
      head = NULL;
      tail = NULL;
     
-     for (int i = 0; i < size; i++)
+     for (int i = 0; i < arraySize; i++)
        {
           PushRear(n[i]);
+         size++;
        }
 
   }
@@ -286,7 +294,33 @@ public:
   | |\/| | _|  | | | __ | (_) | |) \__ \
   |_|  |_|___| |_| |_||_|\___/|___/|___/
   
-*/
+/**
+     * Public : getSize()
+     * 
+     * Description:
+     *     return size of list
+     * 
+     * Params:
+     *      none
+
+     *Returns:
+     *     int
+     * 
+     */
+
+  int Vector::getSize()
+  {
+    Node * traverse = head;
+    int findSize = 0;
+
+    while (traverse)
+      {
+        findSize++;
+        traverse = traverse-> next;
+      }
+    return findSize;
+  }
+
 
 
 /**
@@ -319,6 +353,8 @@ public:
         tail = temp;
      }
 
+     size++;
+
    }
 
 /**
@@ -348,6 +384,7 @@ void Vector::PushFront(int d)
       temp -> next = head;
       head = temp;
     }
+    size++;
     
   }
 
@@ -364,11 +401,15 @@ void Vector::PushFront(int d)
 
 void Vector::PushFront(const Vector & v)
 {
-  
-   v.tail -> next = head;
-  head -> previous = v.tail;
-  head = v.head;
-    
+  size = size + v.size;
+
+  Node * temp = v.tail;
+
+  while (temp)
+    {
+      PushFront(temp->data);
+      temp = temp->previous;
+    }
 }
 
 /**
@@ -384,8 +425,15 @@ void Vector::PushFront(const Vector & v)
 
 void Vector::PushRear(const Vector & v)
 {
-    tail -> next = v.head;
-    tail = v.tail;
+    size = size + v.size;
+
+  Node * temp = v.head;
+
+  while (temp)
+    {
+      PushRear(temp->data);
+      temp = temp->next;
+    }
 }
 
 /**
@@ -415,6 +463,8 @@ int Vector::PopFront()
   temp = nullptr;
   delete temp;
 
+  size--;
+
   return removedNum;
   
 }
@@ -436,31 +486,41 @@ int Vector::PopFront()
 
   Node * temp = new Node (val);
 
-    if (head == NULL || location == 0)
-    {
-      PushFront(val);
-    }
 
     int index = location;
     int count = 0;
     
-    
       Node * traverse = head;
-      while (count < index)
+      Node * trailing = head;
+    
+      while (count < index && traverse != NULL)
         {
+          trailing = traverse;
           traverse = traverse -> next;
           count++;
         }
 
-    if (traverse -> next == NULL)
+    if (trailing->next == NULL)
+    { 
+       PushRear(val);
+    }
+    else if (index == 0 || head == NULL)
+    {
+      PushFront(val);
+    }
+    else if (count == size || index > size)
     {
        PushRear(val);
     }
-
-    temp->next = traverse;
+  else 
+    {
+      temp->next = traverse;
 			temp->previous = traverse->previous;
 			traverse->previous->next = temp;
 			traverse->previous = temp;
+    }
+
+    size++;
     
   }
 
@@ -558,7 +618,7 @@ int Vector::PopFront()
 			    traverse->previous = temp;
       
     }
-
+    size++;
     SortList();
     
   }
@@ -587,9 +647,9 @@ int Vector::PopFront()
     int index = location;
     int count = 0;
     
-
     if (index == 0)
     {
+      size--;
       return PopFront();
     }
     
@@ -602,15 +662,18 @@ int Vector::PopFront()
 
     if (traverse -> next == NULL)
     {
+      size--;
       return PopRear();
     }
-
+    else
+    {
     int poppedNum = traverse -> data;
     traverse -> previous -> next = traverse -> next;
     traverse -> next -> previous = traverse -> previous;
-
+    size--;
     return poppedNum;
-
+    }
+    
     }
 
 
@@ -630,7 +693,7 @@ int Vector::PopFront()
   int Vector::Find(int val)
   {
 
-    int index;
+    int index = 0;
     
     if (head == NULL)
     {
@@ -683,6 +746,8 @@ int Vector::PopRear()
   tail -> next = NULL;
   temp = nullptr;
   delete temp;
+
+  size--;
   
   return removedNum;
   
@@ -744,12 +809,11 @@ int main()
 
   ofstream outfile;
   outfile.open("test.out");
-	
-	
+
+
   outfile << "Nathan Groves" << endl;
   outfile << "September 16, 2022" << endl;
   outfile << "Fall 2143" << endl << endl;
-
 
 
   Vector V1;
@@ -759,34 +823,37 @@ int main()
   V1.PushRear(7);
   V1.PushFront(2);
   
-  cout << "V1 is: " << V1 << endl;
-  outfile << "V1 is: " << V1 << endl;
+   cout << "V1 is: " << V1 << endl;
+   outfile << "V1 is: " << V1 << endl;
 
-  V1.PopRear();
+   V1.PopRear();
+   V1.PopFront();
   
   
-  cout << "V1 after popping at rear is: " << V1 << endl;
-  outfile << "V1 after popping at rear is: " << V1 << endl;
+   cout << "V1 after popping at rear and front is: " << V1 << endl;
+   outfile << "V1 after popping at rear and front is: " << V1 << endl;
 
 
 
-  cout << "searching for 5 in V1: " << V1.Find(5) << endl;
-  outfile << "searching for 5 in V1: " << V1.Find(5) << endl;
+   cout << "searching for 5 in V1: " << V1.Find(5) << endl;
+   cout << "searching for 3 in V1: " << V1.Find(3) << endl;
+   outfile << "searching for 5 in V1: " << V1.Find(5) << endl;
+   outfile << "searching for 3 in V1: " << V1.Find(3) << endl;
 
-  
+   int poppedNum = V1.PopAt(2);
 
-  cout << "Removed value at index 2: " << V1.PopAt(2) << endl;
-  outfile << "Removed value at index 2: " << V1.PopAt(2) << endl;
-
-
-  cout << "V1 is:  " << V1 << endl;
-  outfile << "V1 is:  " << V1 << endl;
+   cout << "Removed value at index 2 after pop at: " << poppedNum << endl;
+   outfile << "Removed value at index 2 after pop at: " << poppedNum << endl;
 
 
-  V1.PushAt(1, 7);
+   cout << "V1 is: " << V1 << endl;
+   outfile << "V1 is: " << V1 << endl;
 
-  cout << "V1 after push at is: " << V1 << endl;
-  outfile << "V1 after push at is: " << V1 << endl;
+
+   V1.PushAt(1, 7);
+
+   cout << "V1 after push of 7 at 1 is: " << V1 << endl;
+   outfile << "V1 after push of 7 at 1 is: " << V1 << endl;
 
 
   Vector V2;
@@ -797,7 +864,7 @@ int main()
   V2.PushRear(93);
   
   cout << "V2 is: " << V2;
-  outfile << "V2 is: " << V2;
+   outfile << "V2 is: " << V2;
 
 
   V2.SortList();
@@ -820,24 +887,28 @@ int main()
   outfile << "V4 is: " << V4 << endl;
 
 
-  V4.PushFront(V1);
+   V4.PushFront(V1);
 
-  cout << "V4 after pushing V1 to front is: " << V4 << endl;
-  outfile << "V4 after pushing V1 to front is: " << V4 << endl;
+   cout << "V4 after pushing V1 to front is: " << V4 << endl;
+   outfile << "V4 after pushing V1 to front is: " << V4 << endl;
 
-
-
-  Vector V5(V2);
-
-  cout << "V5 is: " << V5 << endl;
-  outfile << "V5 is: " << V5 << endl;
+  cout << "V1 is: " << V1 << endl;
+  outfile << "V1 is: " << V1 << endl;
 
 
-  V5.PushRear(V4);
+   Vector V5(V2);
 
-  cout << "V5 after pushing V4 to rear is: " << V5 << endl;
-  outfile << "V5 after pushing V4 to rear is: " << V5 << endl;
+   cout << "V5 after being copied from V2 is: " << V5 << endl;
+   outfile << "V5 after being copied from V2 is: " << V5 << endl;
 
+
+   V5.PushRear(V4);
+
+   cout << "V5 after pushing V4 to rear is: " << V5 << endl;
+   outfile << "V5 after pushing V4 to rear is: " << V5 << endl;
+
+  cout << "V4 is: " << V4 << endl;
+  outfile << "V4 is: " << V4 << endl;
 
   Vector V6;
   V6.PushFront(36);
@@ -847,7 +918,7 @@ int main()
   V6.PushRear(41);
 
   cout << "V6 is: " << V6 << endl;
-  outfile << "V6 is: " << V6 << endl;
+   outfile << "V6 is: " << V6 << endl;
 
 
   V6.SortList();
